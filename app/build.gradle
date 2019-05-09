@@ -1,0 +1,139 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.aliyun.ams.emas-services'
+android {
+    compileSdkVersion 28
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    defaultConfig {
+        applicationId "com.fingerbeat.myapp"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 14
+        versionName "1.4"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //根据需要 自行选择添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 不需要 添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword 'qqqqqqq1'
+            storeFile file('xiecaibao.jks')
+            storePassword 'qqqqqqq1'
+        }
+        release {
+            keyAlias 'key0'
+            keyPassword 'qqqqqqq1'
+            storeFile file('xiecaibao.jks')
+            storePassword 'qqqqqqq1'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-system-common.pro', 'proguard-module.pro', 'proguard-third-party.pro', 'ams_proguard_rules.pro'
+            shrinkResources false
+            buildConfigField "String", "appKey", "\"ABHUNUIO\""
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-system-common.pro', 'proguard-module.pro', 'proguard-third-party.pro', 'ams_proguard_rules.pro'
+            shrinkResources false
+            buildConfigField "String", "appKey", "\"ABHUNUIO\""
+        }
+    }
+
+    greendao{
+        schemaVersion 1//数据库版本号
+//        daoPackage 'com.fingerbeat.cloud.greendao'//设置DaoMaster、DaoSession、Dao包名
+//        targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+        //targetGenDirTest：设置生成单元测试目录
+        //generateTests：设置自动生成单元测试用例
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:recyclerview-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:cardview-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:palette-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:percent:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:preference-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:preference-v14:${SUPPORT_LIB_VERSION}"
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+
+
+    implementation 'com.github.xiecai1234:utilcode:0.0.4'
+    implementation 'com.github.xiecai1234:BaseFrame:0.0.5'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //statusbar 基础依赖包
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta01'
+    // fragment快速实现
+    implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta01'
+    // kotlin扩展
+    implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta01'
+    //tabviewlibrary
+    implementation 'com.ycl.tabview.library:tabviewlibrary:1.0'
+    //网络请求 retrofit + rxjava2
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+//    compile 'com.github.hackware1993:MagicIndicator:1.6.0'
+    implementation 'com.classic.common:multiple-status-view:1.6'
+
+    //    implementation 'com.carmelo:keeplive:1.0.0'
+    debugImplementation('com.github.whataa:pandora:v1.2.2') {
+        exclude group: 'com.squareup.okhttp3'
+        exclude group: 'com.squareup.okio'
+    }
+    releaseImplementation('com.github.whataa:pandora-no-op:v1.2.2') {
+        exclude group: 'com.squareup.okhttp3'
+        exclude group: 'com.squareup.okio'
+    }
+
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.blankj:utilcode:1.12.6'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+
+    //等待框
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'com.github.XiuwenWang:IOSDialog:1.3'
+    //tencent bugly
+    implementation 'com.tencent.bugly:crashreport:2.8.6'
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+}
