@@ -3,6 +3,7 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.aliyun.ams.emas-services'
 android {
     compileSdkVersion 28
+    buildToolsVersion = '28.0.3'
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
@@ -65,7 +66,6 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
-    buildToolsVersion = '28.0.3'
 }
 
 dependencies {

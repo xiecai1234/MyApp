@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity {
         super.initView();
         ImmersionBar.with(this).statusBarColorInt(Color.TRANSPARENT);
 //        loadView();
-        test();
+//        test();
     }
 
     /**
